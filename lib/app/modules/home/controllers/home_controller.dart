@@ -14,7 +14,7 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
-  void toCreatePage() {
+  void toCreatePage() async {
     Get.toNamed(Routes.CREATE);
   }
 
