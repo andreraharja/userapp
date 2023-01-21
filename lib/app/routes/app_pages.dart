@@ -28,6 +28,7 @@ class AppPages {
     GetPage(
       name: _Paths.DETAIL,
       page: () => DetailView(),
+      arguments: Get.arguments,
       binding: DetailBinding(),
     ),
   ];

@@ -18,7 +18,7 @@ class HomeController extends GetxController {
     Get.toNamed(Routes.CREATE);
   }
 
-  toDetailPage() {
-    Get.toNamed(Routes.DETAIL);
+  toDetailPage(int index) {
+    Get.toNamed(Routes.DETAIL, arguments: {"userData": lsUserData[index]});
   }
 }

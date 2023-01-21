@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../controllers/home_controller.dart';
 
-class HomeSearchView extends StatelessWidget {
-  const HomeSearchView({
+class HomeViewSearch extends StatelessWidget {
+  const HomeViewSearch({
     Key? key,
     required this.controller,
   }) : super(key: key);

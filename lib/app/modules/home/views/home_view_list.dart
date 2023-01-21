@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../controllers/home_controller.dart';
 
-class HomeListView extends StatelessWidget {
-  const HomeListView({
+class HomeViewList extends StatelessWidget {
+  const HomeViewList({
     Key? key,
     required this.controller,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class HomeListView extends StatelessWidget {
         itemCount: controller.lsUserData.length,
         itemBuilder: (context, index) {
           return InkWell(
-            onTap: () => controller.toDetailPage(),
+            onTap: () => controller.toDetailPage(index),
             child: Container(
               margin: EdgeInsets.all(5.0),
               decoration: BoxDecoration(

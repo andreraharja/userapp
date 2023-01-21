@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:userapp/app/modules/home/views/home_search_view.dart';
+import 'package:userapp/app/modules/home/views/home_view_search.dart';
 import '../controllers/home_controller.dart';
-import 'home_list_view.dart';
+import 'home_view_list.dart';
 
 class HomeView extends GetView<HomeController> {
   @override
@@ -16,7 +16,7 @@ class HomeView extends GetView<HomeController> {
         padding: const EdgeInsets.all(3.0),
         child: Column(
           children: [
-            HomeSearchView(controller: controller),
+            HomeViewSearch(controller: controller),
             Expanded(
               child: Obx(() => controller.isLoading.value
                   ? Center(child: CircularProgressIndicator())
@@ -36,7 +36,7 @@ class HomeView extends GetView<HomeController> {
     } else if (controller.lsUserData.length == 0) {
       return Text('User Not Found');
     } else {
-      return HomeListView(controller: controller);
+      return HomeViewList(controller: controller);
     }
   }
 }
