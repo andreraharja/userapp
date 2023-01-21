@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/detail_controller.dart';
+import 'detail_view_email.dart';
+import 'detail_view_gender.dart';
+import 'detail_view_name.dart';
+import 'detail_view_status.dart';
 
 class DetailView extends GetView<DetailController> {
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -27,119 +28,16 @@ class DetailView extends GetView<DetailController> {
               Expanded(
                 child: ListView(
                   children: [
-                    Obx(() => TextFormField(
-                          controller: controller.txtNama.value,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Nama *'),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Harap mengisi Nama';
-                            }
-                            return null;
-                          },
-                        )),
+                    DetailViewName(controller: controller),
                     SizedBox(
                       height: 20,
                     ),
-                    Obx(() => TextFormField(
-                          controller: controller.txtEmail.value,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: 'Email *',
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.always),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Harap mengisi Email';
-                            }
-                            return null;
-                          },
-                        )),
+                    DetailViewEmail(controller: controller),
                     SizedBox(
                       height: 15,
                     ),
-                    Obx(() => Row(
-                          children: [
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.2,
-                                child: Text('Gender')),
-                            Text(': '),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    value: 'male',
-                                    groupValue: controller.flagGender.value,
-                                    onChanged: (_) {
-                                      controller.selectGender('male');
-                                    },
-                                  ),
-                                  Text('Male'),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    value: 'female',
-                                    groupValue: controller.flagGender.value,
-                                    onChanged: (value) {
-                                      controller.selectGender('female');
-                                    },
-                                  ),
-                                  Text('Female'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                    Obx(() => Row(
-                          children: [
-                            SizedBox(
-                                width:
-                                    MediaQuery.of(context).size.width * 0.2,
-                                child: Text('Status')),
-                            Text(': '),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    value: 'active',
-                                    groupValue: controller.flagStatus.value,
-                                    onChanged: (_) {
-                                      controller.selectStatus('active');
-                                    },
-                                  ),
-                                  Text('Active'),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              child: Row(
-                                children: [
-                                  Radio(
-                                    value: 'inactive',
-                                    groupValue: controller.flagStatus.value,
-                                    onChanged: (value) {
-                                      controller.selectStatus('inactive');
-                                    },
-                                  ),
-                                  Text('Inactive'),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ))
+                    DetailViewGender(controller: controller),
+                    DetailViewStatus(controller: controller)
                   ],
                 ),
               ),
@@ -148,7 +46,7 @@ class DetailView extends GetView<DetailController> {
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(primary: Colors.green),
                       onPressed: () {
-                          controller.updatePengguna();
+                        controller.updatePengguna();
                       },
                       child: Text('Simpan'))),
               SizedBox(

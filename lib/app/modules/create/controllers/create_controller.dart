@@ -30,13 +30,13 @@ class CreateController extends GetxController {
                   ),
                   barrierDismissible: false);
 
-              List resultCreate =
-                  await UserDataProvider().createUserData(data: {
+              List resultCreate = await UserDataProvider()
+                  .executeCreateOrReplaceUserData(data: {
                 "name": txtNama.value.text,
                 "email": txtEmail.value.text,
                 "gender": flagGender.value,
                 "status": flagStatus.value
-              });
+              }, methodType: "POST", idPengguna: null);
               Get.back();
               if (resultCreate[1] == null) {
                 Get.offAllNamed(Routes.HOME);

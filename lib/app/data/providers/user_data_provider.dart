@@ -8,14 +8,13 @@ import '../user_data_model.dart';
 
 class UserDataProvider {
   Dio _dio = Dio();
+  static String token =
+      "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d";
 
   Future<List<UserData>> getUserData() async {
     try {
       Response response = await _dio.get("https://gorest.co.in/public/v2/users",
-          options: Options(headers: {
-            "Authorization":
-                "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d"
-          }));
+          options: Options(headers: {"Authorization": token}));
       List<UserData> lsResult = [];
       response.data.map((i) => lsResult.add(UserData.fromJson(i))).toList();
       return lsResult;
@@ -24,51 +23,20 @@ class UserDataProvider {
     }
   }
 
-  Future<List> createUserData({required Map data}) async {
+  Future<List> executeCreateOrReplaceUserData(
+      {required Map data, required String methodType, int? idPengguna}) async {
     try {
-      Response response =
-          await _dio.post("https://gorest.co.in/public/v2/users",
-              data: data,
-              options: Options(
-                  headers: {
-                    "Authorization":
-                        "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d"
-                  },
-                  validateStatus: (statusCode) {
-                    if (statusCode == null) {
-                      return false;
-                    }
-                    if (statusCode == 422) {
-                      return true;
-                    } else {
-                      return statusCode >= 200 && statusCode < 300;
-                    }
-                  }));
-      if (response.statusCode! >= 200 && response.statusCode! < 300) {
-        return [UserData.fromJson(response.data), null, null];
+      String url = "";
+      if (methodType == "POST") {
+        url = "https://gorest.co.in/public/v2/users";
       } else {
-        return [
-          UserData(),
-          response.data[0]["field"],
-          response.data[0]["message"]
-        ];
+        url = "https://gorest.co.in/public/v2/users/" + idPengguna.toString();
       }
-    } catch (e) {
-      return [UserData()];
-    }
-  }
-
-  Future<List> updateUserData(
-      {required Map data, required int idPengguna}) async {
-    try {
-      Response response = await _dio.put(
-          "https://gorest.co.in/public/v2/users/" + idPengguna.toString(),
+      Response response = await _dio.request(url,
           data: data,
           options: Options(
-              headers: {
-                "Authorization":
-                    "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d"
-              },
+              method: methodType,
+              headers: {"Authorization": token},
               validateStatus: (statusCode) {
                 if (statusCode == null) {
                   return false;
@@ -97,10 +65,7 @@ class UserDataProvider {
     try {
       Response response = await _dio.delete(
           'https://gorest.co.in/public/v2/users/' + idPengguna.toString(),
-          options: Options(headers: {
-            "Authorization":
-                "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d"
-          }));
+          options: Options(headers: {"Authorization": token}));
       if (response.statusCode! >= 200 && response.statusCode! < 300) {
         return "OK";
       } else {
