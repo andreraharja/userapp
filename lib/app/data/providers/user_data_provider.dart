@@ -11,15 +11,31 @@ class UserDataProvider {
   static String token =
       "Bearer 7f745980d079ef2930b77998eede02087fadd429a62f6162583de583cbc06e5d";
 
-  Future<List<UserData>> getUserData() async {
+  Future<List<UserData>> getUserData({required int pageData}) async {
     try {
-      Response response = await _dio.get("https://gorest.co.in/public/v2/users",
+      Response response = await _dio.get(
+          "https://gorest.co.in/public/v2/users?page=" +
+              pageData.toString() +
+              "&per_page=10",
           options: Options(headers: {"Authorization": token}));
       List<UserData> lsResult = [];
       response.data.map((i) => lsResult.add(UserData.fromJson(i))).toList();
       return lsResult;
     } catch (e) {
       return [];
+    }
+  }
+
+  Future<UserData> getUserDataFromSearch({required String idPengguna}) async {
+    try {
+      Response response = await _dio.get(
+          "https://gorest.co.in/public/v2/users/" + idPengguna,
+          options: Options(headers: {"Authorization": token}));
+      return UserData.fromJson(response.data);
+    } catch (e) {
+      return UserData(
+          status:
+              "Pengguna Tidak Ditemukan.\nHarap Menuliskan ID dengan Lengkap.");
     }
   }
 

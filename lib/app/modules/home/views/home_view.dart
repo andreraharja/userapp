@@ -31,10 +31,8 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget showDataUser(BuildContext context) {
-    if (controller.lsUserData.length == 0) {
-      return Text('User Not Available');
-    } else if (controller.lsUserData.length == 0) {
-      return Text('User Not Found');
+    if (controller.lsResult.length == 0) {
+      return Center(child: Text('Pengguna Tidak Ditemukan'));
     } else {
       return HomeViewList(controller: controller);
     }

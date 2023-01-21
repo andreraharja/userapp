@@ -14,19 +14,17 @@ class HomeViewSearch extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(5.0),
       child: TextFormField(
+        keyboardType:
+            TextInputType.numberWithOptions(signed: false, decimal: false),
         enableSuggestions: false,
         autocorrect: false,
         onChanged: (value) {
-          // context.read<SearchdataBloc>().add(SetDataSearch(
-          //     txtSearch: value,
-          //     selectedOption: stateSearch.selectedOption,
-          //     choiceIndex: stateSearch.choiceIndex,
-          //     page: stateSearch.page));
+          controller.getDataFromSearch(value);
         },
         decoration: const InputDecoration(
           prefixIcon: Icon(Icons.search),
           border: OutlineInputBorder(),
-          hintText: 'Search',
+          hintText: 'Search by ID',
         ),
       ),
     );
