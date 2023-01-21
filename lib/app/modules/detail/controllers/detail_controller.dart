@@ -53,6 +53,7 @@ class DetailController extends GetxController {
               if (resultCreate[1] == null) {
                 Get.offAllNamed(Routes.HOME);
               } else {
+                Get.back();
                 Get.snackbar(resultCreate[1] + ' ' + resultCreate[2], "",
                     snackPosition: SnackPosition.BOTTOM,
                     borderRadius: 0,
@@ -89,6 +90,7 @@ class DetailController extends GetxController {
               if (result == "OK") {
                 Get.offAllNamed(Routes.HOME);
               } else {
+                Get.back();
                 Get.snackbar("Gagal Hapus Pengguna", "",
                     snackPosition: SnackPosition.BOTTOM,
                     backgroundColor: Colors.red,

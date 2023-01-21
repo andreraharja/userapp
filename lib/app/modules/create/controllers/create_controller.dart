@@ -41,6 +41,7 @@ class CreateController extends GetxController {
               if (resultCreate[1] == null) {
                 Get.offAllNamed(Routes.HOME);
               } else {
+                Get.back();
                 Get.snackbar(resultCreate[1] + ' ' + resultCreate[2], "",
                     snackPosition: SnackPosition.BOTTOM,
                     borderRadius: 0,

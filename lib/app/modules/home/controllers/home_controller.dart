@@ -45,7 +45,12 @@ class HomeController extends GetxController {
         await UserDataProvider().getUserDataFromSearch(idPengguna: value);
     lsResult.clear();
     if (result.status!.contains("Tidak Ditemukan")) {
-      lsResult.value = [];
+      if (value == "") {
+        lsResult.value =
+            await UserDataProvider().getUserData(pageData: initPage.value);
+      } else {
+        lsResult.value = [];
+      }
     } else {
       lsResult.add(result);
     }
